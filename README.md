@@ -13,6 +13,16 @@ npm ci
 > 
 > Create a `cypress.env.json` file with the corresponding user and password. Use `env.json` file as example
 
+Opening Cypress dashboard
+```bash
+npm run cy:open
+```
+
+Running tests in headless mode
+
+```bash
+npx cypress run
+```
 
 ## GitHub Actions Integration
 
