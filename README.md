@@ -36,7 +36,7 @@ Automated testing is set up using GitHub Actions:
 
 ![alt text](image.png)
 
-## How to execute a dockerize environment
+## How to execute a dockerized environment
 > [!NOTE]
 > 
 > Create a `.env.local` file with the corresponding user and password. Use .env file as example
