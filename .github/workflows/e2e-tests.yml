@@ -1,20 +1,28 @@
 name: End-to-end tests
+
 on: [push]
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
+    env:
+      CYPRESS_user: ${{secrets.USER}}
+      CYPRESS_pass: ${{secrets.PASSWORD}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
-      - uses: actions/upload-artifact@v3
+        with:
+          browser: chrome
+
+      - name: Upload screenshots on failure
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos

@@ -13,13 +13,13 @@ class LoginPage {
     this.elements.loginButton().click();
   }
 
-  get notificationMessage() {
-    return cy.get(this.paragraphMessage);
+  getNotificationMessage() {
+    return this.elements.paragraphMessage();
   }
 
   changeLanguage(language) {
     this.elements.changeLanguageButton().click();
-    cy.findByRole("link", { name: `${language}` }).click().pause();
+    cy.findByRole("link", { name: `${language}` }).click();
   }
 }
 

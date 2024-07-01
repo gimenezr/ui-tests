@@ -16,7 +16,9 @@ class ProfileComponent {
   }
 
   getSelectedLanguage(language) {
-    return cy.findAllByRole("link", { name: `${language}` });
+    return cy
+      .findByRole("link", { name: `${language}` })
+      .find(".language-switch__selected-indicator");
   }
 }
 
