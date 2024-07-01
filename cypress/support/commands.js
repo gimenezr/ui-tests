@@ -13,13 +13,9 @@
 import "@testing-library/cypress/add-commands";
 
 Cypress.Commands.add("login", (username, password) => {
-  cy.session([username, password], () => {
-    cy.visit("/");
-    cy.get("[id=inputEmail]").type(username);
-    cy.get("[id=inputPassword]").type(password);
-    cy.get("button[type=submit]").click();
-    cy.location("pathname").should("eq", "/account/dashboard/");
-  });
+  cy.get("[id=inputEmail]").type(username);
+  cy.get("[id=inputPassword]").type(password);
+  cy.get("button[type=submit]").click();
 });
 
 Cypress.Commands.add("getParagraphMessage", () => {

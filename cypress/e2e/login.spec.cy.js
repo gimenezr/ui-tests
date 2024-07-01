@@ -11,9 +11,11 @@ describe("Logged in user flow", () => {
 
   it("should successfully log in with valid credentials and log out", () => {
     const profileComponent = new ProfileComponent();
-    const loginPage = new LoginPage();
-    loginPage.doLogin(Cypress.env("user"), Cypress.env("pass"));
+    cy.login(Cypress.env("user"), Cypress.env("pass"));
+    cy.location("pathname").should("eq", "/account/dashboard/");
+
     profileComponent.logout();
+    cy.location("pathname").should("eq", "/login/");
     cy.contains("Login").and("be.visible");
     cy.getParagraphMessage()
       .should("contain", "You have successfully logged out.")
@@ -24,8 +26,9 @@ describe("Logged in user flow", () => {
   });
 
   it("should show an error message with invalid credentials", () => {
-    const loginPage = new LoginPage();
-    loginPage.doLogin(faker.internet.userName(), faker.internet.password());
+    cy.login(faker.internet.userName(), faker.internet.password());
+
+    cy.location("pathname").should("eq", "/login/");
     cy.getParagraphMessage()
       .should("contain", "You have entered an incorrect username or password.")
       .and("be.visible");
@@ -39,7 +42,8 @@ describe("Logged in user flow", () => {
     loginPage.changeLanguage(LANGUAGE_VALUE.IT);
     cy.intercept("GET", "/v7/identity/users/current_user/").as("userData");
 
-    loginPage.doLogin(Cypress.env("user"), Cypress.env("pass"));
+    cy.login(Cypress.env("user"), Cypress.env("pass"));
+
     const profileComponent = new ProfileComponent();
     cy.wait("@userData").then(({ response }) => {
       expect(response.body.preferred_language).to.exist;
