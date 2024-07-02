@@ -2,6 +2,12 @@ class LoginPage {
   elements = {
     paragraphMessage: () => cy.findByRole("paragraph"),
     changeLanguageButton: () => cy.findByRole("link", { name: "Language" }),
+    forgotPasswordButton: () =>
+      cy.findByRole("link", { name: "Lost password?" }),
+    emailInput: () => cy.get("#forgotPassword"),
+    sendInstructionsButton: () => cy.get("#sendPassword"),
+    requiredFieldToastMessage: () => cy.findByText("This field is required."),
+    captchaInput: () => cy.findByPlaceholderText("Enter above word(s)"),
   };
 
   getNotificationMessage() {

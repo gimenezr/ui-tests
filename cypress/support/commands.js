@@ -13,8 +13,8 @@
 import "@testing-library/cypress/add-commands";
 
 Cypress.Commands.add("login", (username, password) => {
-  cy.get("[id=inputEmail]").type(username);
-  cy.get("[id=inputPassword]").type(password);
+  cy.get("#inputEmail").type(username);
+  cy.get("#inputPassword").type(password);
   cy.get("button[type=submit]").click();
 });
 

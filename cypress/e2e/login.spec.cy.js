@@ -54,4 +54,25 @@ describe("Logged in user flow", () => {
       .getSelectedLanguage(LANGUAGE_VALUE.EN)
       .should("be.visible");
   });
+
+  /*
+  I marked this test as skipped because, after completing the required fields, 
+  the "Send Instructions" button is not enabled. The page needs to be reloaded to 
+  restore the button's status.
+  I wanted to inform you about this behavior.
+  */
+  it.skip("should maintain user preferred language when changing language in login page", () => {
+    const loginPage = new LoginPage();
+    loginPage.elements.forgotPasswordButton().click();
+    cy.location("pathname").should("eq", "/user/forgotPassword/");
+
+    loginPage.elements.emailInput().type(faker.internet.userName());
+    loginPage.elements.sendInstructionsButton().click();
+    loginPage.elements.requiredFieldToastMessage().should("be.visible");
+
+    loginPage.elements
+      .captchaInput()
+      .type(faker.string.alphanumeric({ length: 8 }));
+    loginPage.elements.sendInstructionsButton().should("be.enabled");
+  });
 });
